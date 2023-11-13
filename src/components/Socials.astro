@@ -1,0 +1,39 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+import IconGitHub from "./icons/IconGitHub.astro";
+import IconLinkedIn from "./icons/IconLinkedIn.astro";
+import IconYouTube from "./icons/IconYouTube.astro";
+
+const socials = [
+  {
+    name: "GitHub",
+    href: "https://github.com/mikeploythai",
+    Icon: IconGitHub,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/mikeploythai",
+    Icon: IconLinkedIn,
+  },
+  {
+    name: "YouTube",
+    href: "https://youtube.com/@mikeploythai",
+    Icon: IconYouTube,
+  },
+];
+---
+
+<div class="flex gap-1.5">
+  {
+    socials.map(({ name, href, Icon }) => (
+      <ExternalLink
+        class="flex rounded-lg border border-slate-200 p-1.5 shadow-sm transition ease-in-out hover:bg-slate-100 hover:shadow-md dark:border-slate-800 dark:hover:bg-slate-900"
+        {href}
+        noArrow
+      >
+        <Icon />
+        <span class="sr-only">Link to Mike's {name}</span>
+      </ExternalLink>
+    ))
+  }
+</div>

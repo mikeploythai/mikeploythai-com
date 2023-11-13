@@ -1,0 +1,72 @@
+---
+import ExternalLink from "./ExternalLink.astro";
+const response = await fetch("https://api.github.com/graphql", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${import.meta.env.GH_AUTH_TOKEN}`,
+  },
+  body: JSON.stringify({
+    query: `
+        {
+          viewer {
+            pinnedItems(types: REPOSITORY, first: 4) {
+              nodes {
+                ... on Repository {
+                  name
+                  description
+                  url
+                }
+              }
+            }
+          }
+        }
+      `,
+  }),
+});
+
+type PinnedItems = {
+  data: {
+    viewer: {
+      pinnedItems: {
+        nodes: {
+          name: string;
+          description: string;
+          url: string;
+        }[];
+      };
+    };
+  };
+};
+
+const json: PinnedItems = await response.json();
+const items = json.data.viewer.pinnedItems.nodes;
+---
+
+<div class:list={[items.length && "space-y-3"]}>
+  {
+    items.length ? (
+      items.map(({ name, description, url }) => (
+        <ExternalLink
+          href={url}
+          class="prose-slate flex flex-col rounded-lg border border-slate-200 px-6 py-3 no-underline shadow-sm transition ease-in-out dark:prose-invert hover:bg-slate-100 hover:shadow-lg prose-headings:m-0 prose-h3:lowercase prose-p:m-0 prose-p:font-normal dark:border-slate-800 dark:hover:bg-slate-900"
+          noArrow
+        >
+          <h3 class="underline">{name} &nearr;</h3>
+          <p class="line-clamp-3">{description}</p>
+        </ExternalLink>
+      ))
+    ) : (
+      <p class="rounded-lg border border-slate-200 px-6 py-3 shadow-sm dark:border-slate-800">
+        Nothing here yet!
+      </p>
+    )
+  }
+
+  <ExternalLink
+    href="https://github.com/mikeploythai?tab=repositories"
+    class="inline-flex capitalize"
+  >
+    View more
+  </ExternalLink>
+</div>

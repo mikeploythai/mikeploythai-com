@@ -1,16 +1,70 @@
 ---
+import ExternalLink from "../components/ExternalLink.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
+import Socials from "../components/Socials.astro";
 
+const date = new Date();
+const year = date.getFullYear();
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Mike Ploythai</title>
+  </head>
+
+  <body
+    class="prose prose-slate prose-violet mx-auto flex min-h-screen max-w-screen-md flex-col justify-center p-6 duration-700 ease-in-out animate-in fade-in-0 slide-in-from-bottom-6 [text-wrap:pretty] dark:prose-invert prose-headings:capitalize dark:bg-slate-950 sm:p-12"
+  >
+    <header>
+      <h1>Mike Ploythai</h1>
+      <p>
+        Hi! I like to build things that look pretty and do cool things, mostly
+        with React, TypeScript, and Tailwind. Currently Webmaster at <ExternalLink
+          href="https://liushelly.com"
+        >
+          Socials by Shelly
+        </ExternalLink>.
+      </p>
+      <p>
+        Outside of code and design, I like to play the guitar and drums, learn
+        new recipes to cook, <i>inconsistently</i> make <ExternalLink
+          href="https://youtube.com/@mikeploythai"
+        >
+          YouTube
+        </ExternalLink> videos, and spend time with my
+        girlfriend/friends/family.
+      </p>
+      <p>
+        Seeking full-time front-end/full-stack opportunities in California. <ExternalLink
+          href="https://github.com/mikeploythai/mikeploythai-com/blob/resume/resume.pdf"
+        >
+          Check out my resume!
+        </ExternalLink>
+      </p>
+    </header>
+
+    <h2>Featured projects</h2>
+    <FeaturedProjects />
+
+    <h2>Recent posts</h2>
+    <p
+      class="rounded-lg border border-slate-200 px-6 py-3 shadow-sm dark:border-slate-800"
+    >
+      Maybe someday 😅
+    </p>
+
+    <footer
+      class="mt-6 flex flex-col justify-between gap-3 prose-h2:m-0 prose-h2:text-base prose-h2:font-medium prose-p:m-0 sm:flex-row sm:items-center"
+    >
+      <hgroup>
+        <h2>&copy; Mike Ploythai {year}</h2>
+        <p class="text-sm italic">hello(at)mikeploythai.com</p>
+      </hgroup>
+      <Socials />
+    </footer>
+  </body>
 </html>
