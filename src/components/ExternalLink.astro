@@ -1,14 +1,23 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
+import { twMerge } from "tailwind-merge";
+import IconArrowUpRight from "./icons/IconArrowUpRight.astro";
+
 interface Props extends HTMLAttributes<"a"> {
   noArrow?: boolean;
 }
 
-const { href, noArrow, ...attr } = Astro.props;
+const { href, noArrow, class: classNames, ...attr } = Astro.props;
 ---
 
-<a target="_blank" rel="noreferrer" {href} {...attr}>
+<a
+  target="_blank"
+  rel="noreferrer"
+  class={twMerge("inline-flex items-center", classNames)}
+  {href}
+  {...attr}
+>
   <slot />
-  {!noArrow && <>&nearr;</>}
+  {!noArrow && <IconArrowUpRight size={18} />}
 </a>
